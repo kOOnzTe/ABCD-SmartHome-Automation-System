@@ -6,6 +6,7 @@ import java.util.List;
 import devices.SmartDevice;
 import iterator.DeviceIterator;
 import strategy.ActiveMode;
+import strategy.AwayMode;
 import strategy.NotificationStrategy;
 import strategy.PetMode;
 import users.User;
@@ -81,7 +82,7 @@ public class MainControlPanel implements SubjectInterface {
 
 	@Override
 	public void notifyRegisteredUsers(String message) {
-		if (mode instanceof ActiveMode || mode instanceof PetMode) {
+		if (!(mode instanceof AwayMode)) {
 			for (int i = 0; i < registeredUsers.size(); i++) {
 				registeredUsers.get(i).update("updated: " + message);
 			}
