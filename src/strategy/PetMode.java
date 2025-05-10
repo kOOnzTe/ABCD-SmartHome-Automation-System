@@ -8,7 +8,7 @@ import java.util.List;
 public class PetMode implements NotificationStrategy {
 	
     @Override
-    public void sendNotification(String message) {
+    public void sendNotification() {
 		MainControlPanel panel = MainControlPanel.getInstance();
 		boolean isPetDetected = panel.isPetDetected();
 		List<User> registeredUsers = panel.getRegisteredUsers();
@@ -17,14 +17,11 @@ public class PetMode implements NotificationStrategy {
 			boolean isAdmin = user instanceof Admin;
 
 			if (isAdmin) {
-				user.update("PetMode (Admin Alert): " + message); // Admin always receives
+				user.update("Notification(Pet Mode): Something is detected in your home!" ); // Admin always receives
 			} else {
 				// For non-admins, notify only if no pet is detected
 				if (!isPetDetected) {
-					user.update("PetMode (No Pet Detected): " + message);
-				} else {
-					// Optional: log suppression for debugging
-					// System.out.println("PetMode: Notification for user " + user.getName() + " ('" + message + "') suppressed due to pet detection.");
+					user.update("Notification(Pet Mode): Someone is detected in your home!" );
 				}
 			}
 		}

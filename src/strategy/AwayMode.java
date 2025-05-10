@@ -7,7 +7,7 @@ import java.util.List;
 public class AwayMode implements NotificationStrategy {
 	
     @Override
-    public void sendNotification(String message) {
+    public void sendNotification() {
 		MainControlPanel panel = MainControlPanel.getInstance();
 		List<User> usersToNotify = panel.getRegisteredUsers();
 
@@ -15,7 +15,7 @@ public class AwayMode implements NotificationStrategy {
         // "It is important to remember that the admin always receives notifications."
         // If admin is always a registered user, this loop covers the admin as well.
 		for (User user : usersToNotify) {
-			user.update("AwayMode Notification: " + message);
+			user.update("Notification(Away Mode): Someone is detected in your home!");
 		}
     }
 }

@@ -5,8 +5,7 @@ package strategy;
 public class ActiveMode implements NotificationStrategy {
 	
     @Override
-    public void sendNotification(String message) {
-    	// In Active Mode, all notifications are suppressed. Do nothing.
-        // System.out.println("ActiveMode: Notification '" + message + "' intentionally suppressed."); // For debug
+    public void sendNotification() {
+    	// In Active Mode, all notifications are suppressed. Do nothing even if you are admin.
     }
 }

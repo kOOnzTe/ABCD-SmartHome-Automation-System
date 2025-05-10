@@ -37,12 +37,12 @@ public class MainControlPanel implements SubjectInterface {
 		users.add(user);
 	}
 
-	public void notifyUsers(String eventMessage) {
+	public void notifyUsers() {
 		if (this.mode == null) {
 			System.err.println("Error: Notification strategy (mode) is not set.");
 			return;
 		}
-		this.mode.sendNotification(eventMessage);
+		this.mode.sendNotification();
 	}
 
 	public void setMode(NotificationStrategy newMode) {
