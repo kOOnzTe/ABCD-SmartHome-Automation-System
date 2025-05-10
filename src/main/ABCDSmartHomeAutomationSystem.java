@@ -35,7 +35,6 @@ public class ABCDSmartHomeAutomationSystem {
         // Design Pattern 4: Observer (User Registration part)
         System.out.println("\n--- Demonstrating Observer Pattern (User Registration) ---");
         System.out.println("The Admin user is automatically set and always receives notifications.");
-        Admin.setInstance(user1); // Alice is the admin
         System.out.println(user1.getName() + " set as Admin.");
 
         System.out.println("Registering users with the MainControlPanel to receive notifications.");
