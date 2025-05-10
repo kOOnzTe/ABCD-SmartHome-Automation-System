@@ -36,3 +36,4 @@ replay_pid*
 
 # macos
 .DS_Store
+/software-design-pattern.iml
