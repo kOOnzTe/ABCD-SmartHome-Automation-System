@@ -99,8 +99,13 @@ public class MainControlPanel implements SubjectInterface {
 
 	@Override
 	public void register(User user) {
+        if (user.getIsChild()) {
+            System.out.println(user.getName() + " is a child and is not registered as an observer.");
+            return;
+        }
 		if (!registeredUsers.contains(user)) {
 			registeredUsers.add(user);
+            System.out.println(user.getName() + " is registered as an observer.");
 		}
 	}
 

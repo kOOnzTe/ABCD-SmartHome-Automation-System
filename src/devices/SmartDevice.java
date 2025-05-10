@@ -24,4 +24,7 @@ public abstract class SmartDevice {
         return name;
     }
 
+    public boolean isOn() {
+        return this.isOn;
+    }
 }
