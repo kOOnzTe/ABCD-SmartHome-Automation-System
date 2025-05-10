@@ -28,12 +28,16 @@ public class ABCDSmartHomeAutomationSystem {
         System.out.println("\n--- Initializing Users (for Observer Pattern later) ---");
         System.out.println("Creating user Alice");
         User user1 = new User("Alice", false);
+        panel.addUser(user1);
         System.out.println("Creating user Bob");
         User user2 = new User("Bob", false);
+        panel.addUser(user2);
         System.out.println("Creating user Charlie (is a child)");
         User user3 = new User("Charlie", true);
+        panel.addUser(user3);
         System.out.println("Creating admin");
         Admin admin = Admin.getInstance();
+        panel.addUser(admin);
 
         // Design Pattern 4: Observer (User Registration part)
         System.out.println("\n--- Demonstrating Observer Pattern (User Registration) ---");

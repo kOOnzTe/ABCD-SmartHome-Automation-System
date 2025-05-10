@@ -127,13 +127,4 @@ public class MainControlPanel implements SubjectInterface {
 	public void unregister(User user) {
 		registeredUsers.remove(user);
 	}
-
-	@Override
-	public void notifyRegisteredUsers(String message) {
-		if (!(mode instanceof ActiveMode)) {
-			for (User user : registeredUsers) {
-				user.update("updated: " + message);
-			}
-		}
-	}
 }
