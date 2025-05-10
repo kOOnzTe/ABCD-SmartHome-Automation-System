@@ -11,21 +11,22 @@ import strategy.ActiveMode;
 import strategy.AwayMode;
 import strategy.PetMode;
 import users.Admin;
-import users.Child;
-import users.Parent;
 import users.User;
 
 public class Main {
     public static void main(String[] args) {
         MainControlPanel panel = MainControlPanel.getInstance();
+        
+        User user1 = new User("Alice", false); // will be admin
+        User user2 = new User("Bob", false); // user (non-child)
+        User user3 = new User("Charlie", true); // user (child)
 
         // Register Users (Observer pattern)
-        User admin = new Admin("Alice");
-        User parent = new Parent("Bob");
-        User child = new Child("Charlie");
-        panel.register(admin);
-        panel.register(parent);
-        panel.register(child);
+        Admin.setInstance(user1);
+
+        panel.register(user1);
+        panel.register(user2);
+        panel.register(user3);
 
         // Create devices using Factory Method pattern
         DeviceCreator thermostatCreator = new ThermostatCreator();

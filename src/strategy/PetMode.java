@@ -14,16 +14,10 @@ public class PetMode implements NotificationStrategy {
 		List<User> registeredUsers = panel.getRegisteredUsers();
 
 		for (User user : registeredUsers) {
-			boolean isAdmin = user instanceof Admin;
-
-			if (isAdmin) {
-				user.update("Notification(Pet Mode): Something is detected in your home!" ); // Admin always receives
-			} else {
-				// For non-admins, notify only if no pet is detected
-				if (!isPetDetected) {
-					user.update("Notification(Pet Mode): Someone is detected in your home!" );
-				}
-			}
+			if (isPetDetected) {
+				user.update("Notification(Pet Mode): Someone is detected in your home!" );
+			}	
 		}
+		Admin.getInstance().update("Notification(Pet Mode -> Admin Only): Someone is detected in your home!");
     }
 }

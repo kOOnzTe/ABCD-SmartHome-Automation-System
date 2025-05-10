@@ -1,12 +1,15 @@
 package users;
 
-public abstract class User {
+public class User {
     protected String name;
+    protected boolean isChild;
 
-    public User(String name) {
+    public User(String name, boolean isChild) {
         this.name = name;
+        this.isChild = isChild;
     }
 
-    public abstract void update(String message);
-
+    public void update(String message) {
+        System.out.println(this.name + " (User): " + message);
+    }
 }
