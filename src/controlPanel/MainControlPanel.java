@@ -42,7 +42,7 @@ public class MainControlPanel implements SubjectInterface {
 
 	public void setMode(NotificationStrategy mode) {
 		this.mode = mode;
-		String message = "Active mode activated!";
+		String message = "Away mode activated!";
 		if(mode instanceof PetMode)
 			message = "Pet mode activated!";
 		notifyUsers(message);
