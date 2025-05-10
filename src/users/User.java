@@ -9,6 +9,10 @@ public class User {
         this.isChild = isChild;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public void update(String message) {
         System.out.println(this.name + " (User): " + message);
     }
