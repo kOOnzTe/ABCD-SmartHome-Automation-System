@@ -15,7 +15,12 @@ import users.User;
 
 public class Main {
     public static void main(String[] args) {
+        System.out.println("\nWelcome toABCD Smart Home Automation System!");
+
+        // Initialize the control panel
+        System.out.println("\n--- Initializing Control Panel ---");
         MainControlPanel panel = MainControlPanel.getInstance();
+        System.out.println("Control Panel initialized");
         
         User user1 = new User("Alice", false); // will be admin
         User user2 = new User("Bob", false); // user (non-child)
