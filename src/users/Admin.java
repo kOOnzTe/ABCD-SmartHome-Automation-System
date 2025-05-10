@@ -6,7 +6,7 @@ public final class Admin extends User {
         super(name, false);
     }
 
-    public static synchronized User getInstance() {
+    public static synchronized Admin getInstance() {
         if (instance == null) {
             instance = new Admin("admin");
         }
