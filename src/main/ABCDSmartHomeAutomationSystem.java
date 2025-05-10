@@ -25,6 +25,32 @@ public class ABCDSmartHomeAutomationSystem {
         MainControlPanel panel2 = MainControlPanel.getInstance();
         System.out.println("Second MainControlPanel instance obtained: " + panel2.hashCode());
 
+        // Design Pattern 2: Factory Method
+        System.out.println("\n--- Demonstrating Factory Method Pattern (Device Creation) ---");
+        DeviceCreator thermostatCreator = new ThermostatCreator();
+        System.out.println("ThermostatCreator instantiated.");
+        SmartDevice thermostat = thermostatCreator.createDevice("Living Room Thermostat", "5");
+        System.out.println("ThermostatCreator produced: " + thermostat.getName() + " (" + thermostat.getClass().getSimpleName() + ")");
+        panel.addDevice(thermostat);
+
+        DeviceCreator lightCreator = new LightCreator();
+        System.out.println("LightCreator instantiated.");
+        SmartDevice light = lightCreator.createDevice("Kitchen Light", "800 Lumen");
+        System.out.println("LightCreator produced: " + light.getName() + " (" + light.getClass().getSimpleName() + ")");
+        panel.addDevice(light);
+
+        DeviceCreator acCreator = new AirConditionerCreator();
+        System.out.println("AirConditionerCreator instantiated.");
+        SmartDevice ac = acCreator.createDevice("Bedroom AC", "Medium");
+        System.out.println("AirConditionerCreator produced: " + ac.getName() + " (" + ac.getClass().getSimpleName() + ")");
+        panel.addDevice(ac);
+
+        DeviceCreator cameraCreator = new CameraCreator();
+        System.out.println("CameraCreator instantiated.");
+        SmartDevice camera = cameraCreator.createDevice("Hall Camera", "720p");
+        System.out.println("CameraCreator produced: " + camera.getName() + " (" + camera.getClass().getSimpleName() + ")");
+        panel.addDevice(camera);
+
         System.out.println("\n--- Initializing Users (for Observer Pattern later) ---");
         System.out.println("Creating user Alice");
         User user1 = new User("Alice", false);
@@ -46,32 +72,6 @@ public class ABCDSmartHomeAutomationSystem {
         panel.register(user2);
         panel.register(user3); // Charlie is will not be registered as an observer since he is a child
 
-
-        // Design Pattern 2: Factory Method
-        System.out.println("\n--- Demonstrating Factory Method Pattern (Device Creation) ---");
-        DeviceCreator thermostatCreator = new ThermostatCreator();
-        System.out.println("ThermostatCreator instantiated.");
-        SmartDevice thermostat = thermostatCreator.createDevice("Living Room Thermostat");
-        System.out.println("ThermostatCreator produced: " + thermostat.getName() + " (" + thermostat.getClass().getSimpleName() + ")");
-        panel.addDevice(thermostat);
-
-        DeviceCreator lightCreator = new LightCreator();
-        System.out.println("LightCreator instantiated.");
-        SmartDevice light = lightCreator.createDevice("Kitchen Light");
-        System.out.println("LightCreator produced: " + light.getName() + " (" + light.getClass().getSimpleName() + ")");
-        panel.addDevice(light);
-
-        DeviceCreator acCreator = new AirConditionerCreator();
-        System.out.println("AirConditionerCreator instantiated.");
-        SmartDevice ac = acCreator.createDevice("Bedroom AC");
-        System.out.println("AirConditionerCreator produced: " + ac.getName() + " (" + ac.getClass().getSimpleName() + ")");
-        panel.addDevice(ac);
-
-        DeviceCreator cameraCreator = new CameraCreator();
-        System.out.println("CameraCreator instantiated.");
-        SmartDevice camera = cameraCreator.createDevice("Hall Camera");
-        System.out.println("CameraCreator produced: " + camera.getName() + " (" + camera.getClass().getSimpleName() + ")");
-        panel.addDevice(camera);
 
         System.out.println("\n--- System Initialized with Devices and Users ---");
 
@@ -140,8 +140,16 @@ public class ABCDSmartHomeAutomationSystem {
         System.out.println("\n--- Demonstrating Iterator Pattern (Listing Devices) ---");
         System.out.println("Turning off smart light:");
         panel.turnDeviceOff(light);
-        System.out.println("Iterating through all registered devices to display their status/info:");
+        System.out.println("\nIterating through all registered devices to display their status/info:");
         panel.getDevicesStatus();
+
+        System.out.println("\nTurning off all devices:");
+        Command turnAllOff = new TurnAllOffCommand();
+        turnAllOff.execute();
+
+        System.out.println("\nIterating through all registered devices to display their status/info:");
+        panel.getDevicesStatus();
+
 
         System.out.println("\n--- ABCD Smart Home Automation System Demo Completed ---");
     }

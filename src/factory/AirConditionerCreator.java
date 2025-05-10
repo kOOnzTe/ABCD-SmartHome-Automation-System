@@ -4,7 +4,7 @@ import devices.SmartAirConditioner;
 import devices.SmartDevice;
 
 public class AirConditionerCreator extends DeviceCreator {
-    public SmartDevice createDevice(String name) {
-        return new SmartAirConditioner(name);
+    public SmartDevice createDevice(String name, String fanSpeed) {
+        return new SmartAirConditioner(name, fanSpeed);
     }
 }

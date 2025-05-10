@@ -3,9 +3,9 @@ package devices;
 public class SmartLight extends SmartDevice {
     private String brightness;
 
-    public SmartLight(String name) {
+    public SmartLight(String name, String brightness) {
         super(name);
-        this.brightness = "1000";
+        this.brightness = brightness;
     }
 
     @Override

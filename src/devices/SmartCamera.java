@@ -3,9 +3,9 @@ package devices;
 public class SmartCamera extends SmartDevice {
     private String resolution;
 
-    public SmartCamera(String name) {
+    public SmartCamera(String name, String resolution) {
         super(name);
-        this.resolution = "720p";
+        this.resolution = resolution;
     }
 
     @Override

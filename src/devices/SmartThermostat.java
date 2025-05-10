@@ -3,9 +3,9 @@ package devices;
 public class SmartThermostat extends SmartDevice {
     private String temperatureCheckInterval;
 
-    public SmartThermostat(String name) {
+    public SmartThermostat(String name, String temperatureCheckInterval) {
         super(name);
-        temperatureCheckInterval = "3 seconds";
+        this.temperatureCheckInterval = temperatureCheckInterval;
     }
 
     @Override

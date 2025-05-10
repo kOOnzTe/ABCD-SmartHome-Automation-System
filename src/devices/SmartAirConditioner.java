@@ -3,9 +3,9 @@ package devices;
 public class SmartAirConditioner extends SmartDevice {
     private String fanSpeed;
 
-    public SmartAirConditioner(String name) {
+    public SmartAirConditioner(String name, String fanSpeed) {
         super(name);
-        fanSpeed = "Medium";
+        this.fanSpeed = fanSpeed;
     }
 
     @Override
