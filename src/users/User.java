@@ -13,6 +13,10 @@ public class User {
         return this.name;
     }
 
+    public boolean getIsChild() {
+        return this.isChild;
+    }
+
     public void update(String message) {
         System.out.println(this.name + " (User): " + message);
     }
