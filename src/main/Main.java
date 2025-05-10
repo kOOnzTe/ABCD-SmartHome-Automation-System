@@ -6,11 +6,7 @@ import command.TurnAllOffCommand;
 import command.TurnAllOnCommand;
 import controlPanel.MainControlPanel;
 import devices.SmartDevice;
-import factory.AirConditionerCreator;
-import factory.CameraCreator;
-import factory.DeviceCreator;
-import factory.LightCreator;
-import factory.ThermostatCreator;
+import factory.*;
 import strategy.ActiveMode;
 import strategy.AwayMode;
 import strategy.PetMode;
@@ -23,15 +19,15 @@ public class Main {
     public static void main(String[] args) {
         MainControlPanel panel = MainControlPanel.getInstance();
 
-        // Add Users
+        // Register Users (Observer pattern)
         User admin = new Admin("Alice");
         User parent = new Parent("Bob");
         User child = new Child("Charlie");
-        panel.addUser(admin);
-        panel.addUser(parent);
-        panel.addUser(child);
+        panel.register(admin);
+        panel.register(parent);
+        panel.register(child);
 
-        // Create devices using Factory Method pattern (Concrete Creators)
+        // Create devices using Factory Method pattern
         DeviceCreator thermostatCreator = new ThermostatCreator();
         DeviceCreator lightCreator = new LightCreator();
         DeviceCreator acCreator = new AirConditionerCreator();
@@ -50,21 +46,17 @@ public class Main {
         Command turnAllOn = new TurnAllOnCommand();
         turnAllOn.execute();
 
-        // Simulate Away Mode
+        // Switch to Away Mode (includes internal notification)
         System.out.println("\n--- Switching to AWAY MODE ---");
         panel.setMode(new AwayMode());
-        panel.notifyUsers("Motion detected in the hallway!");
 
-        // Simulate Pet Mode
+        // Switch to Pet Mode (includes internal notification)
         System.out.println("\n--- Switching to PET MODE ---");
         panel.setMode(new PetMode());
-        panel.notifyUsers("Pet detected in the living room.");
-        panel.notifyUsers("Unknown motion detected in the bedroom!");
 
-        // Simulate Active Mode
+        // Switch to Active Mode (includes internal notification)
         System.out.println("\n--- Switching to ACTIVE MODE (Do Not Disturb) ---");
         panel.setMode(new ActiveMode());
-        panel.notifyUsers("Motion detected outside the door.");
 
         // Turn all devices OFF
         System.out.println("\n--- Turning All Devices OFF ---");
@@ -82,7 +74,7 @@ public class Main {
         setTemp.execute();
         setResolution.execute();
 
-        // Iterate over devices manually (just to show the iterator)
+        // List all devices using Iterator
         System.out.println("\n--- Current Devices ---");
         for (SmartDevice d : panel.getDevices()) {
             System.out.println("Device: " + d.getClass().getSimpleName() + " - " + d.getName());

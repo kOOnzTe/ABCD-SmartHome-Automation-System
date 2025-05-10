@@ -82,7 +82,7 @@ public class MainControlPanel implements SubjectInterface {
 
 	@Override
 	public void notifyRegisteredUsers(String message) {
-		if (!(mode instanceof AwayMode)) {
+		if (!(mode instanceof ActiveMode)) {
 			for (int i = 0; i < registeredUsers.size(); i++) {
 				registeredUsers.get(i).update("updated: " + message);
 			}
