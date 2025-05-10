@@ -1,7 +1,7 @@
 package devices;
 
 public abstract class SmartDevice {
-    private String name;
+    protected String name;
     protected boolean isOn = false;
 
     public SmartDevice(String name) {

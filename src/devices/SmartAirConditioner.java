@@ -1,17 +1,18 @@
 package devices;
 
 public class SmartAirConditioner extends SmartDevice {
-    private FanSpeed fanSpeed;
+    private String fanSpeed;
 
     public SmartAirConditioner(String name) {
         super(name);
-        fanSpeed = FanSpeed.MEDIUM;
+        fanSpeed = "Medium";
     }
 
     @Override
     public void executeCommand(String type, String value) {
-        if (type.equalsIgnoreCase("fanspeed")) {
-            System.out.println(" fan speed set to " + value);
+        if (type.equalsIgnoreCase("changefanspeed")) {
+            fanSpeed = value;
+            System.out.println(name + " fan speed set to " + fanSpeed);
         }
     }
 }
