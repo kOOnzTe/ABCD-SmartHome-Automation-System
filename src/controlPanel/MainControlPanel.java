@@ -9,12 +9,12 @@ import strategy.ActiveMode;
 import strategy.NotificationStrategy;
 import users.User;
 
-public class MainControlPanel {
+public class MainControlPanel implements SubjectInterface{
     private static MainControlPanel instance;
     private List<SmartDevice> devices = new ArrayList<>();
     private List<User> users = new ArrayList<>();
     private NotificationStrategy mode = new ActiveMode();
-
+    private List<User> registeredUsers = new ArrayList<>();
     private MainControlPanel() {}
 
     public static synchronized MainControlPanel getInstance() {
@@ -33,11 +33,7 @@ public class MainControlPanel {
     }
 
     public void notifyUsers(String message) {
-        for (User user : users) {
-            if (user.isAdmin() || user.isRegistered()) {
-                mode.sendNotification(user, message);
-            }
-        }
+        // TODO
     }
 
     public void setMode(NotificationStrategy mode) {
@@ -63,5 +59,24 @@ public class MainControlPanel {
     public List<User> getUsers() {
         return users;
     }
+
+    @Override
+    public void register(User user) {
+        if (!registeredUsers.contains(user)) {
+            registeredUsers.add(user);
+        }
+    }
+
+    @Override
+    public void unregister(User user) {
+        registeredUsers.remove(user);
+    }
+
+	@Override
+	public void notifyRegisteredUsers() {
+		for(int i = 0;i < registeredUsers.size();i++) {
+			registeredUsers.get(i).update("updated");
+		}
+	}
 }
 
