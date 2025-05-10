@@ -1,9 +1,12 @@
 package strategy;
 
-import users.User;
+import controlPanel.MainControlPanel;
 
 public class ActiveMode implements NotificationStrategy {
-    public void sendNotification(User user, String message) {
-        // No notifications
+	
+    public void sendNotification(String message) {
+    	MainControlPanel mainControlPanel = MainControlPanel.getInstance();
+    	
+    	mainControlPanel.notifyUsers(message);
     }
 }
