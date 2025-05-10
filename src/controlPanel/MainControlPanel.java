@@ -17,6 +17,7 @@ public class MainControlPanel implements SubjectInterface {
 	private List<User> users = new ArrayList<>();
 	private NotificationStrategy mode = new ActiveMode();
 	private List<User> registeredUsers = new ArrayList<>();
+	private boolean petDetectedState = false;
 
 	private MainControlPanel() {
 	}
@@ -36,16 +37,32 @@ public class MainControlPanel implements SubjectInterface {
 		users.add(user);
 	}
 
-	public void notifyUsers(String message) {
-		notifyRegisteredUsers(message);
+	public void notifyUsers() {
+		if (this.mode == null) {
+			System.err.println("Error: Notification strategy (mode) is not set.");
+			return;
+		}
+		this.mode.sendNotification();
 	}
 
-	public void setMode(NotificationStrategy mode) {
-		this.mode = mode;
-		String message = "Away mode activated!";
-		if(mode instanceof PetMode)
-			message = "Pet mode activated!";
-		notifyUsers(message);
+	public void setMode(NotificationStrategy newMode) {
+		this.mode = newMode;
+
+		String modeChangeMessage;
+		if (this.mode instanceof ActiveMode) {
+			modeChangeMessage = "Active mode (Do Not Disturb) activated!";
+		} else if (this.mode instanceof AwayMode) {
+			modeChangeMessage = "Away mode activated!";
+		} else if (this.mode instanceof PetMode) {
+			modeChangeMessage = "Pet mode activated!";
+		} else {
+			modeChangeMessage = "Switched to an unspecified mode.";
+		}
+
+		System.out.println("MainControlPanel System Update: " + modeChangeMessage);
+		for (User user : registeredUsers) {
+			user.update(modeChangeMessage);
+		}
 	}
 
 	public void turnAllDevicesOn() {
@@ -68,6 +85,18 @@ public class MainControlPanel implements SubjectInterface {
 		return users;
 	}
 
+	public List<User> getRegisteredUsers() {
+		return new ArrayList<>(this.registeredUsers);
+	}
+
+	public boolean isPetDetected() {
+		return this.petDetectedState;
+	}
+
+	public void setPetDetected(boolean detected) {
+		this.petDetectedState = detected;
+	}
+
 	@Override
 	public void register(User user) {
 		if (!registeredUsers.contains(user)) {
@@ -83,10 +112,9 @@ public class MainControlPanel implements SubjectInterface {
 	@Override
 	public void notifyRegisteredUsers(String message) {
 		if (!(mode instanceof ActiveMode)) {
-			for (int i = 0; i < registeredUsers.size(); i++) {
-				registeredUsers.get(i).update("updated: " + message);
+			for (User user : registeredUsers) {
+				user.update("updated: " + message);
 			}
 		}
-
 	}
 }
