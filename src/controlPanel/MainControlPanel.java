@@ -77,6 +77,20 @@ public class MainControlPanel implements SubjectInterface {
 		}
 	}
 
+	public void turnDeviceOn(SmartDevice d) {
+		d.turnOn();
+	}
+	public void turnDeviceOff(SmartDevice d) {
+		d.turnOff();
+	}
+
+	public void getDevicesStatus() {
+		for (SmartDevice d : new DeviceIterator(devices)) {
+			System.out.println("Device: " + d.getClass().getSimpleName() + " - " + d.getName() + " | Status: " + (d.isOn() ? "ON" : "OFF"));
+		}
+		System.out.println("Total devices iterated: " + devices.size());
+	}
+
 	public List<SmartDevice> getDevices() {
 		return devices;
 	}

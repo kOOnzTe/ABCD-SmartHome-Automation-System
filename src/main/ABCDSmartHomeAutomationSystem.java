@@ -24,25 +24,23 @@ public class ABCDSmartHomeAutomationSystem {
         System.out.println("MainControlPanel instance obtained: " + panel.hashCode());
         MainControlPanel panel2 = MainControlPanel.getInstance();
         System.out.println("Second MainControlPanel instance obtained: " + panel2.hashCode());
-        System.out.println("Both instances refer to the same object, confirming Singleton pattern: " + (panel == panel2));
-        System.out.println("--- Singleton Pattern Demonstration Complete ---");
 
         System.out.println("\n--- Initializing Users (for Observer Pattern later) ---");
-        User user1 = new User("Alice (Admin)", false);
-        User user2 = new User("Bob (Registered User)", false);
-        User user3 = new User("Charlie (Child User - Unregistered for general notifications)", true);
+        System.out.println("Creating user Alice");
+        User user1 = new User("Alice", false);
+        System.out.println("Creating user Bob");
+        User user2 = new User("Bob", false);
+        System.out.println("Creating user Charlie (is a child)");
+        User user3 = new User("Charlie", true);
+        System.out.println("Creating admin");
+        Admin admin = Admin.getInstance();
 
         // Design Pattern 4: Observer (User Registration part)
         System.out.println("\n--- Demonstrating Observer Pattern (User Registration) ---");
-        System.out.println("The Admin user is automatically set and always receives notifications.");
-        System.out.println(user1.getName() + " set as Admin.");
-
-        System.out.println("Registering users with the MainControlPanel to receive notifications.");
-        System.out.println("Users (Observers) register with the MainControlPanel (Subject).");
+        System.out.println("Registering users with the MainControlPanel to receive notifications. (Charlie is not registered as an observer since he is a child)");
         panel.register(user1);
         panel.register(user2);
-        panel.register(user3); // Charlie is not registered as an observer since he is a child
-        System.out.println("--- Observer Pattern (User Registration) Demonstration Complete ---");
+        panel.register(user3); // Charlie is will not be registered as an observer since he is a child
 
 
         // Design Pattern 2: Factory Method
@@ -70,7 +68,6 @@ public class ABCDSmartHomeAutomationSystem {
         SmartDevice camera = cameraCreator.createDevice("Hall Camera");
         System.out.println("CameraCreator produced: " + camera.getName() + " (" + camera.getClass().getSimpleName() + ")");
         panel.addDevice(camera);
-        System.out.println("--- Factory Method Pattern Demonstration Complete ---");
 
         System.out.println("\n--- System Initialized with Devices and Users ---");
 
@@ -81,8 +78,6 @@ public class ABCDSmartHomeAutomationSystem {
         System.out.println("\nExecuting 'Turn All Devices ON' Command:");
         Command turnAllOn = new TurnAllOnCommand();
         turnAllOn.execute();
-        System.out.println("'Turn All Devices ON' Command executed.");
-        System.out.println("--- Command Pattern (Bulk Operations) Demonstration Complete ---");
 
         // Design Pattern 6: Strategy & Design Pattern 4: Observer (Notifications)
         System.out.println("\n--- Demonstrating Strategy Pattern (Control Panel Modes) & Observer Pattern (Notifications) ---");
@@ -90,15 +85,16 @@ public class ABCDSmartHomeAutomationSystem {
         System.out.println("\nSwitching to AWAY MODE:");
         System.out.println("AwayMode Strategy: Full notifications for registered users if camera detects movement. Admin always notified.");
         panel.setMode(new AwayMode());
-        System.out.println("Simulating camera detecting movement in Away Mode (conceptual).");
+        System.out.println("Camera is detecting movement.");
         panel.notifyUsers();
+
         System.out.println("\nSwitching to PET MODE:");
         System.out.println("PetMode Strategy: Notifications for movement, but suppressed if a pet is detected. Admin always notified.");
         panel.setMode(new PetMode());
-        System.out.println("Simulating camera detecting movement with a pet in Pet Mode (conceptual).");
+        System.out.println("Camera is detecting movement of a pet.");
         panel.setPetDetected(true);
         panel.notifyUsers();
-        System.out.println("Simulating camera detecting movement without a pet in Pet Mode (conceptual).");
+        System.out.println("Camera is detecting movement of something other than a pet.");
         panel.setPetDetected(false);
         panel.notifyUsers();
         
@@ -106,7 +102,7 @@ public class ABCDSmartHomeAutomationSystem {
         System.out.println("\nSwitching to ACTIVE MODE (Do Not Disturb):");
         panel.setMode(new ActiveMode());
         System.out.println("ActiveMode Strategy: All notifications disabled. Admin always notified.");
-        System.out.println("Simulating camera detecting movement in Active Mode (conceptual)."); 
+        System.out.println("Camera is detecting movement.");
         panel.notifyUsers();
 
 
@@ -118,8 +114,6 @@ public class ABCDSmartHomeAutomationSystem {
         System.out.println("Simulating camera detecting movement in Away Mode (conceptual)."); 
         panel.notifyUsers();
 
-               
-        System.out.println("--- Strategy & Observer (Notifications) Pattern Demonstration Complete ---");
 
         System.out.println("\n--- Demonstrating Command Pattern (Device-Specific Operations) ---");
         System.out.println("Device-specific actions are also encapsulated as Command objects.");
@@ -127,39 +121,23 @@ public class ABCDSmartHomeAutomationSystem {
         SmartDevice hallCamera = panel.getDevices().get(3);
 
         System.out.println("\nExecuting 'Set Temperature' Command for " + livingRoomThermostat.getName() + ":");
-        Command setTemp = new DeviceSpecificCommand(livingRoomThermostat, "temperature", "22");
-        System.out.println("Instantiated DeviceSpecificCommand for setting temperature.");
-        setTemp.execute();
-        System.out.println("'Set Temperature' Command executed.");
+        Command changecheckinterval = new DeviceSpecificCommand(livingRoomThermostat, "changecheckinterval", "5");
+        System.out.println("Instantiated changeCheckInterval for setting check interval.");
+        changecheckinterval.execute();
+        System.out.println("'changeCheckInterval' Command executed.");
 
         System.out.println("\nExecuting 'Set Resolution' Command for " + hallCamera.getName() + ":");
-        Command setResolution = new DeviceSpecificCommand(hallCamera, "resolution", "4K");
+        Command setResolution = new DeviceSpecificCommand(hallCamera, "changeresolution", "1080p");
         System.out.println("Instantiated DeviceSpecificCommand for setting camera resolution.");
         setResolution.execute();
         System.out.println("'Set Resolution' Command executed.");
-        System.out.println("--- Command Pattern (Device-Specific) Demonstration Complete ---");
-
-
-        System.out.println("\n--- Demonstrating Command Pattern (Bulk Operations - Turn Off) ---");
-        System.out.println("Executing 'Turn All Devices OFF' Command:");
-        Command turnAllOff = new TurnAllOffCommand();
-        System.out.println("Instantiated TurnAllOffCommand. This command will iterate through all devices (implicit Iterator pattern).");
-        turnAllOff.execute();
-        System.out.println("'Turn All Devices OFF' Command executed.");
-        System.out.println("--- Command Pattern (Bulk Operations - Turn Off) Demonstration Complete ---");
-
 
         // Design Pattern 3: Iterator
         System.out.println("\n--- Demonstrating Iterator Pattern (Listing Devices) ---");
+        System.out.println("Turning off smart light:");
+        panel.turnDeviceOff(light);
         System.out.println("Iterating through all registered devices to display their status/info:");
-        int deviceCount = 0;
-        for (SmartDevice d : panel.getDevices()) {
-            System.out.println("Device: " + d.getClass().getSimpleName() + " - " + d.getName() + " | Status: " + (d.isOn() ? "ON" : "OFF"));
-            deviceCount++;
-        }
-        System.out.println("Total devices iterated: " + deviceCount);
-        System.out.println("--- Iterator Pattern Demonstration Complete ---");
-
+        panel.getDevicesStatus();
 
         System.out.println("\n--- ABCD Smart Home Automation System Demo Completed ---");
     }
