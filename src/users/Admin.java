@@ -1,24 +1,20 @@
 package users;
 
-public final class Admin {
-    private static User instance;
-
-    private Admin() {
+public final class Admin extends User {
+    private static Admin instance;
+    private Admin(String name) {
+        super(name, false);
     }
 
     public static synchronized User getInstance() {
         if (instance == null) {
-            System.out.println("No admin is assigned");
-			return null;
+            instance = new Admin("admin");
         }
         return instance;
     }
 
-	public static void setInstance(User admin) {
-		if (instance.isChild) {
-			System.out.println("Error: Admin cannot be a child!");
-		} else {
-			instance = admin;
-		}
-	}
+	@Override
+    public void update(String message) {
+        System.out.println(this.name + " (Admin): " + message);
+    }
 }
