@@ -5,10 +5,12 @@ public class Admin extends User {
         super(name);
     }
 
-    public void update(String message) {
-        System.out.println("[Admin " + name + "] Notification: " + message);
-    }
+	@Override
+	public void update(String message) {
+		System.out.println(name+ ": "+ message);
+		
+	}
 
-    public boolean isAdmin() { return true; }
-    public boolean isRegistered() { return true; }
+    
+
 }

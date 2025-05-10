@@ -6,13 +6,17 @@ import command.TurnAllOffCommand;
 import command.TurnAllOnCommand;
 import controlPanel.MainControlPanel;
 import devices.SmartDevice;
-import factory.*;
+import factory.AirConditionerCreator;
+import factory.CameraCreator;
+import factory.DeviceCreator;
+import factory.LightCreator;
+import factory.ThermostatCreator;
 import strategy.ActiveMode;
 import strategy.AwayMode;
 import strategy.PetMode;
 import users.Admin;
-import users.RegisteredUser;
-import users.UnregisteredUser;
+import users.Child;
+import users.Parent;
 import users.User;
 
 public class Main {
@@ -21,8 +25,8 @@ public class Main {
 
         // Add Users
         User admin = new Admin("Alice");
-        User parent = new RegisteredUser("Bob");
-        User child = new UnregisteredUser("Charlie");
+        User parent = new Parent("Bob");
+        User child = new Child("Charlie");
         panel.addUser(admin);
         panel.addUser(parent);
         panel.addUser(child);

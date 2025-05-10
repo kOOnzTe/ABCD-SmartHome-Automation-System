@@ -9,6 +9,4 @@ public abstract class User {
 
     public abstract void update(String message);
 
-    public abstract boolean isAdmin();
-    public abstract boolean isRegistered();
 }
