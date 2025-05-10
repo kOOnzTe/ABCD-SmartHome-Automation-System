@@ -14,7 +14,7 @@ public class PetMode implements NotificationStrategy {
 		List<User> registeredUsers = panel.getRegisteredUsers();
 
 		for (User user : registeredUsers) {
-			if (isPetDetected) {
+			if (!isPetDetected) {
 				user.update("Notification(Pet Mode): Someone is detected in your home!" );
 			}	
 		}
