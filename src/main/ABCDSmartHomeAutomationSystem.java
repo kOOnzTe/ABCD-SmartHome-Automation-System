@@ -136,10 +136,20 @@ public class ABCDSmartHomeAutomationSystem {
         setResolution.execute();
         System.out.println("'Set Resolution' Command executed.");
 
+        System.out.println("\nExecuting 'Adjust Fan Speed' Command for " + ac.getName() + ":");
+        Command adjustFanSpeed = new DeviceSpecificCommand(ac, "adjustfanspeed", "High");
+        System.out.println("Instantiated DeviceSpecificCommand for adjusting fan speed.");
+        adjustFanSpeed.execute();
+        System.out.println("'Adjust Fan Speed' Command executed.");
+
+        System.out.println("\nExecuting 'Change Brightness' Command for " + light.getName() + ":");
+        Command changeBrightness = new DeviceSpecificCommand(light, "changebrightness", "100%");
+        System.out.println("Instantiated DeviceSpecificCommand for changing brightness.");
+        changeBrightness.execute();
+        System.out.println("'Change Brightness' Command executed.");
+
         // Design Pattern 3: Iterator
         System.out.println("\n--- Demonstrating Iterator Pattern (Listing Devices) ---");
-        System.out.println("Turning off smart light:");
-        panel.turnDeviceOff(light);
         System.out.println("\nIterating through all registered devices to display their status/info:");
         panel.getDevicesStatus();
 
