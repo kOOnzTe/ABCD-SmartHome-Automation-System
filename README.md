@@ -1,4 +1,5 @@
 # ABCD Smart Home Automation System
+### (CTIS 417 - Software Design Patterns Project)
 
 ## Project Overview
 
