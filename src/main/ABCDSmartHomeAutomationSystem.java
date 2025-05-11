@@ -1,27 +1,26 @@
 package main;
 
-import command.Command;
-import command.DeviceSpecificCommand;
-import command.TurnAllOffCommand;
-import command.TurnAllOnCommand;
+import command.*;
 import controlPanel.MainControlPanel;
 import devices.SmartDevice;
 import factory.*;
 import strategy.ActiveMode;
 import strategy.AwayMode;
 import strategy.PetMode;
-import users.Admin;
-import users.User;
+import users.*;
 
 public class ABCDSmartHomeAutomationSystem {
     public static void main(String[] args) {
         System.out.println("Welcome to ABCD Smart Home Automation System!");
+        // Note: The control panel and its users will only belong to one home.
 
         // Design Pattern 1: Singleton with Lazy Initialization
         System.out.println("\n--- Demonstrating Singleton Pattern (MainControlPanel) ---");
-        System.out.println("Attempting to get instance of MainControlPanel.");
+        System.out.println("A request for panel work has been received.");
         MainControlPanel panel = MainControlPanel.getInstance();
         System.out.println("MainControlPanel instance obtained: " + panel.hashCode());
+        System.out.println("Second request for panel work has been received.");
+        // this will not create a new instance, but return the existing one.
         MainControlPanel panel2 = MainControlPanel.getInstance();
         System.out.println("Second MainControlPanel instance obtained: " + panel2.hashCode());
 
@@ -71,6 +70,7 @@ public class ABCDSmartHomeAutomationSystem {
         panel.register(user1);
         panel.register(user2);
         panel.register(user3); // Charlie is will not be registered as an observer since he is a child
+        // No need to register admin as an observer, since he is always notified.
 
 
         System.out.println("\n--- System Initialized with Devices and Users ---");
@@ -103,14 +103,14 @@ public class ABCDSmartHomeAutomationSystem {
         panel.notifyUsers();
         
 
-        System.out.println("\nSwitching to ACTIVE MODE (Do Not Disturb):");
+        System.out.println("\nSwitching to ACTIVE MODE:");
         panel.setMode(new ActiveMode());
         System.out.println("ActiveMode Strategy: All notifications disabled. Admin always notified.");
         System.out.println("Camera is detecting movement.");
         panel.notifyUsers();
 
 
-        System.out.println("\nSwitching to AWAY MODE (Do Not Disturb):");
+        System.out.println("\nSwitching to AWAY MODE");
         panel.setMode(new AwayMode());
         System.out.println("AwayMode Strategy: Full notifications for registered users if camera detects movement. Admin always notified.");
         System.out.println("User2 is removed from observer list, so he will not receive notifications.");

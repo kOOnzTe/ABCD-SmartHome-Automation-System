@@ -13,6 +13,7 @@ public class DeviceSpecificCommand implements Command {
         this.value = value;
     }
 
+    @Override
     public void execute() {
         device.executeCommand(commandType, value);
     }

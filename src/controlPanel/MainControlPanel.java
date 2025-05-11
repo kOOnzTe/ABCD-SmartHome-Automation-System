@@ -1,14 +1,14 @@
 package controlPanel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import devices.SmartDevice;
 import iterator.DeviceIterator;
+import java.util.ArrayList;
+import java.util.List;
 import strategy.ActiveMode;
 import strategy.AwayMode;
 import strategy.NotificationStrategy;
 import strategy.PetMode;
+import users.Admin;
 import users.User;
 
 public class MainControlPanel implements SubjectInterface {
@@ -24,6 +24,7 @@ public class MainControlPanel implements SubjectInterface {
 
 	public static synchronized MainControlPanel getInstance() {
 		if (instance == null) {
+			System.out.println("Creating MainControlPanel instance.");
 			instance = new MainControlPanel();
 		}
 		return instance;
@@ -33,10 +34,25 @@ public class MainControlPanel implements SubjectInterface {
 		devices.add(device);
 	}
 
+	// public void removeDevice(SmartDevice device) {
+	// 	devices.remove(device);
+	// }
+	// public void removeAllDevices() {
+	// 	devices.clear();
+	// }
+
 	public void addUser(User user) {
 		users.add(user);
 	}
 
+	// public void removeUser(User user) {
+	// 	users.remove(user);
+	// }
+	// public void removeAllUsers() {
+	// 	users.clear();
+	// }
+
+	@Override
 	public void notifyUsers() {
 		if (this.mode == null) {
 			System.err.println("Error: Notification strategy (mode) is not set.");
@@ -50,7 +66,7 @@ public class MainControlPanel implements SubjectInterface {
 
 		String modeChangeMessage;
 		if (this.mode instanceof ActiveMode) {
-			modeChangeMessage = "Active mode (Do Not Disturb) activated!";
+			modeChangeMessage = "Active mode activated!";
 		} else if (this.mode instanceof AwayMode) {
 			modeChangeMessage = "Away mode activated!";
 		} else if (this.mode instanceof PetMode) {
@@ -63,6 +79,7 @@ public class MainControlPanel implements SubjectInterface {
 		for (User user : registeredUsers) {
 			user.update(modeChangeMessage);
 		}
+		Admin.getInstance().update(modeChangeMessage);
 	}
 
 	public void turnAllDevicesOn() {
@@ -114,7 +131,7 @@ public class MainControlPanel implements SubjectInterface {
 	@Override
 	public void register(User user) {
         if (user.getIsChild()) {
-            System.out.println(user.getName() + " is a child and is not registered as an observer.");
+            System.out.println(user.getName() + " is a child and is NOT registered as an observer.");
             return;
         }
 		if (!registeredUsers.contains(user)) {

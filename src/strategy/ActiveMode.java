@@ -1,7 +1,6 @@
 package strategy;
 
 import users.Admin;
-// No MainControlPanel import needed if it does nothing directly with it.
 
 public class ActiveMode implements NotificationStrategy {
 	

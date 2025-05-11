@@ -18,13 +18,14 @@ public abstract class SmartDevice {
         System.out.println(name + " is turned OFF.");
     }
 
-    public abstract void executeCommand(String type, String value);
+    public boolean isOn() {
+        return this.isOn;
+    }
     
     public String getName() {
         return name;
     }
 
-    public boolean isOn() {
-        return this.isOn;
-    }
+    public abstract void executeCommand(String type, String value);
+
 }
